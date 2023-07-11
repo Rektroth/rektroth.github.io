@@ -1,0 +1,898 @@
+<html>
+	<head>
+		<title>Rektroth - My Mods</title>
+		<style>
+			body
+			{
+				font-family: Inter, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+				color: rgb(176, 186, 197);
+				background-color: rgb(22, 24, 28);
+				font-size: 16px;
+			}
+			
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6
+			{
+				margin-top: 0;
+				color: rgb(236, 249, 251)
+			}
+			
+			h1
+			{
+				font-size: 28px;
+			}
+			
+			h2
+			{
+				font-size: 26px;
+			}
+			
+			h3
+			{
+				font-size: 24px;
+			}
+			
+			h4
+			{
+				font-size: 22px;
+			}
+			
+			h5
+			{
+				font-size: 20px;
+			}
+			
+			h6
+			{
+				font-size: 18px;
+			}
+			
+			a
+			{
+				color: rgb(116, 182, 243);
+				text-decoration: none;
+			}
+			
+			a:hover
+			{
+				color: #1a76e7;;
+			}
+			
+			.mod
+			{
+				display: flex;
+				flex-wrap: wrap;
+				background-color: rgb(38, 41, 47);
+				padding: 0.5em;
+				border-radius: 0.75em;
+				margin: 1em;
+			}
+			
+			.mod p
+			{
+				margin: 0;
+				padding-right: 1em;
+			}
+			
+			.mod .mod-icon,
+			.mod .mod-version
+			{
+				flex: 20%;
+			}
+			
+			.mod .mod-description
+			{
+				flex: 60%;
+			}
+			
+			.mod .mod-version
+			{
+				text-align: center;
+				font-weight: bold;
+				font-size: 19px;
+				margin: auto;
+			}
+			
+			.mod .mod-icon img
+			{
+				width: 128px;
+				border-radius: 0.5em;
+				background-color: rgb(67, 73, 86);
+			}
+			
+			.mod .mod-version span.prerelease-link
+			{
+				//font-size: 16px;
+				text-transform: uppercase;
+			}
+			
+			.mod .mod-version span.updated,
+			.mod .mod-version span.outdated,
+			.mod .mod-version span.very-outdated
+			{
+				display: flex;
+				align-items: center;
+			}
+			
+			span.updated
+			{
+				color: rgb(27, 217, 106);
+			}
+			
+			span.outdated
+			{
+				color: rgb(255, 163, 71);
+			}
+			
+			span.very-outdated
+			{
+				color: rgb(255, 73, 110);
+			}
+			
+			.mod .mod-version span.updated span.circle,
+			.mod .mod-version span.outdated span.circle,
+			.mod .mod-version span.very-outdated span.circle
+			{
+				border-radius: 50%;
+				margin-right: 4px;
+				display: block;
+				height: 13px;
+				width: 13px;
+			}
+			
+			.mod .mod-version span.updated span.circle
+			{
+				background-color: rgb(27, 217, 106);
+			}
+			
+			.mod .mod-version span.outdated span.circle
+			{
+				background-color: rgb(255, 163, 71);
+			}
+			
+			.mod .mod-version span.very-outdated span.circle
+			{
+				background-color: rgb(255, 73, 110);
+			}
+		</style>
+	</head>
+	<body style="max-width: 800px; margin: auto;">
+		<h1>My Mods</h1>
+		<p>In what I like to call "the good ol' days," the only mod that I ever used was OptiFine, as I am what many refer to so lovingly as a "vanilla purist." But as time went on and the OptiFine mod became slower, more bloated, buggier, and more aggressive with its modifications to the game, it became clear to me that an alternative was necessary. At which point I found the mod trio Sodium, Lithium, and Phosphor, alongside a group of other mods that fulfilled OptiFine's many other features. From that day forward, my list of vanilla-esque mods has continued to grow. What follows is my complete list of mods at present.</p>
+		<p>All of these mods are used with the <a href="https://quiltmc.org/en/" target="_blank">Quilt Mod Loader</a>.</p>
+		<p>The listed Minecraft version is the most recent <i>release</i> that each mod is <b>confirmed</b> to be <b>100% fully compatible and functional</b> with. <span class="updated">Green</span> means it is confirmed to be compatible with the latest release. <span class="outdated">Orange</span> means that it's not been officially updated to the latest release, but has been tested by <i>me</i> and <i>appears</i> to function properly. (I make no guarantee that it will work for <i>you</i>.) <span class="very-outdated">Red</span> means that it is confirmed not to work with the latest release.</p>
+		<p>Some mods also include a link to an unofficial "pre-release". These are updated versions of the mod for newer releases of Minecraft, but are <b>not sanctioned by the mod's original author</b>. There is no guarantee that they are fully compatible, that they function properly, or that they do not include malware. <b>Proceed at own risk!</b></p>
+		<h2>OptiFine Features</h2>
+		<p>The following mods offer the features of the popular optimization mod OptiFine ported to Fabric and improved upon.</p>
+		<div class="mod" id="sodium">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/AANobbMI/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/sodium" target="_blank">Sodium</a>
+				</h3>
+				<p>Modern rendering engine.</p>
+				<p>Required by <a href="#iris">Iris</a>, <a href="#reeses-sodium-options">Reese's Sodium Options</a>, and <a href="#sodium-extra">Sodium Extra</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="sodium-extra">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/PtjYWJkn/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/sodium-extra" target="_blank">Sodium Extra</a>
+				</h3>
+				<p>Adds some configurations not included in <a href="#sodium">Sodium</a>, such as adjustable cloud height and more advanced particle controls.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="reeses-sodium-options">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/Bh37bMuy/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/reeses-sodium-options" target="_blank">Reese's Sodium Options</a>
+				</h3>
+				<p>Better options menu for both <a href="#sodium">Sodium</a> and <a href="#sodium-extra">Sodium Extra</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="iris">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/YL57xq9U/dc558eece920db435f9823ce86de0c4cde89800b.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/iris" target="_blank">Iris</a>
+				</h3>
+				<p>Implements the OptiFine shader format.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="lambdynamiclights">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/yBW8D80W/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/lambdynamiclights" target="_blank">LambDynamicLights</a>
+				</h3>
+				<p>Dynamic lighting.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="more-culling">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/51shyZVL/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/moreculling" target="_blank">More Culling</a>
+				</h3>
+				<p>More aggressive block face culling.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="ok-zoomer">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/aXf2OSFU/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/ok-zoomer" target="_blank">Ok Zoomer</a>
+				</h3>
+				<p>Adds a highly-configurable zoom.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="animatica">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/PRN43VSY/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/animatica" target="_blank">Animatica</a>
+				</h3>
+				<p>Implements the OptiFine animated texture format.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="cit-resewn">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/otVJckYQ/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/cit-resewn" target="_blank">CIT Resewn</a>
+				</h3>
+				<p>Implements the OptiFine custom item textures format.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="colormatic">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/V4IQxkZC/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/colormatic" target="_blank">Colormatic</a>
+				</h3>
+				<p>Implements the OptiFine custom colors format.</p>
+			</div>
+			<div class="mod-version">
+				<span class="very-outdated"><span class="circle"></span> 1.19.2</span>
+			</div>
+		</div>
+		<div class="mod" id="continuity">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/1IjD5062/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/continuity" target="_blank">Continuity</a>
+				</h3>
+				<p>Implements the OptiFine connected textures format and adds emissive texture support for blocks and items.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="entity-model-features">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/4I1XuqiY/851d67f28abc1ed5826acd548e554d5cd4afb838.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/entity-model-features/versions" target="_blank">Entity Model Features</a>
+				</h3>
+				<p>Implements the OptiFine custom entity models and animations format.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="entity-texture-features">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/BVzZfTc1/8652b3d18c262b33e0cf194d402977897267573a.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/entitytexturefeatures" target="_blank">Entity Texture Features</a>
+				</h3>
+				<p>Implements the OptiFine random and emissive mob textures format.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="fabricskyboxes">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/YBz7DOs8/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/fabricskyboxes" target="_blank">FabricSkyBoxes</a>
+				</h3>
+				<p>Allows for custom skyboxes in resource packs.</p>
+				<p>Required by <a href="#fabricskyboxes-interop">FabricSkyBoxes Interop</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="fabricskyboxes-interop">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/YBz7DOs8/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/fabricskyboxes-interop" target="_blank">FabricSkyBoxes Interop</a>
+				</h3>
+				<p>Implements the OptiFine custom skyboxes format within <a href="#fabricskyboxes">FabricSkyBoxes</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="optigui">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/JuksLGBQ/2ec739011e612256ebe0c79a4ce064d0e453dd0f.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/optigui" target="_blank">OptiGUI</a>
+				</h3>
+				<p>Implements the OptiFine custom GUI format.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<h2>Other Functionality and Performance Enhancements</h2>
+		<p>The following mods offer performance improvements and bug fixes beyond those provided by OptiFine.</p>
+		<div class="mod" id="debugify">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/QwxR6Gcd/d1db8e74a5ad29908bd011ce271145cea349cd13.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/debugify" target="_blank">Debugify</a>
+				</h3>
+				<p>Fixes bugs.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="dynamic-fps">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/LQ3K71Q1/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/dynamic-fps" target="_blank">Dynamic FPS</a>
+				</h3>
+				<p>Improves performance when Minecraft is in the background.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="enhanced-block-entities">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/OVuFYfre/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/ebe" target="_blank">Enhanced Block Entities</a>
+				</h3>
+				<p>Reduces lag by rendering block entities as normal blocks.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="entityculling">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/NNAgCjsB/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/entityculling" target="_blank">Entity Culling</a>
+				</h3>
+				<p>Skips rendering entities that aren't in view.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="ferritecore">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/uXXizFIs/icon.jpg" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/ferrite-core" target="_blank">FerriteCore</a>
+				</h3>
+				<p>Reduces memory usage.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="immediatelyfast">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/5ZwdcRci/ae81978f72653539e3de5bf837bbdfd6da102360.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/immediatelyfast" target="_blank">ImmediatelyFast</a>
+				</h3>
+				<p>Improves immediate mode rendering performance.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="krypton">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/fQEb0iXm/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/krypton/" target="_blank">Krypton</a>
+				</h3>
+				<p>Optimizes networking.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="language-reload">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/uLbm7CG6/9cae8ec18cac3b1cc6ef1efa239f381d669264e6.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/language-reload" target="_blank">Language Reload</a>
+				</h3>
+				<p>Makes switching between languages instant.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="lithium">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/gvQqBUqZ/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/lithium" target="_blank">Lithium</a>
+				</h3>
+				<p>Optimizes general game logic to improve tick speed.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="memory-leak-fix">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/NRjRiSSD/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/memoryleakfix" target="_blank">Memory Leak Fix</a>
+				</h3>
+				<p>Fixes known memory leaks.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="model-gap-fix">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/QdG47OkI/5a8203e120985d11616614e11ad7b888997000d8.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/modelfix" target="_blank">Model Gap Fix</a>
+				</h3>
+				<p>Fixes the stitching on block and item models.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="sound-physics-remastered">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/qyVF9oeo/798fbfae58ec95ad51f3e1d522b43227306c326c.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/sound-physics-remastered" target="_blank">Sound Physics Remastered</a>
+				</h3>
+				<p>Provides realistic sound attenuation, reverberation, and absorption.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<h2>Visual Tweaks</h2>
+		<p>The following mods make changes to the user interface that either improve the visuals or provide additional information.</p>
+		<div class="mod" id="betterf3">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/8shC1gFX/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/betterf3" target="_blank">Better F3</a>
+				</h3>
+				<p>Makes the debug screen highly configurable and easier to read.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="better-mount-hud">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/kqJFAPU9/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/better-mount-hud" target="_blank">Better Mount HUD</a>
+				</h3>
+				<p>Shows both horse health and player hunger while mounted to a horse, donkey, or mule.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="horse-stats-vanilla">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/l4qoXLzx/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/horsestatsvanilla" target="_blank">Horse Stats Vanilla</a>
+				</h3>
+				<p>Displays the stats of horses, donkeys, and mules in their inventories.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="mod-menu">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/mOgUt4GM/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/modmenu" target="_blank">Mod Menu</a>
+				</h3>
+				<p>Makes the debug screen highly configurable and easier to read.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="not-enough-animations">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/MPCX6s5C/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/not-enough-animations" target="_blank">Not Enough Animations</a>
+				</h3>
+				<p>Adds missing third-persion animations and modifies others to be better representative.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="notes">
+			<div class="mod-icon">
+				<img src="https://media.forgecdn.net/avatars/85/870/636205417489993262.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://www.curseforge.com/minecraft/mc-mods/notes" target="_blank">Notes</a>
+				</h3>
+				<p>Adds a notepad to the game UI.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="paginated-advancements">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/pJogNFap/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/paginatedadvancements" target="_blank">Paginated Advancements</a>
+				</h3>
+				<p>Overhauls the advancements screen.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="tiny-item-animations">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/wMkevcSR/cefe2f7923e57980cb27671c948ac3393e55a4e9.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/tiny-item-animations" target="_blank">Tiny Item Animations</a>
+				</h3>
+				<p>Adds little animations when you pick up or insert items with your mouse.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<h2>Tools</h2>
+		<p>The following mods provide tools to assist with a variety of tasks.</p>
+		<div class="mod" id="litematica">
+			<div class="mod-icon">
+				<img src="https://media.forgecdn.net/avatars/thumbnails/181/712/64/64/636802492918868562.jpeg" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://www.curseforge.com/minecraft/mc-mods/litematica" target="_blank">Litematica</a>
+				</h3>
+				<p>Provides a holographic overlay of saved builds.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="minihud">
+			<div class="mod-icon">
+				<img src="https://media.forgecdn.net/avatars/thumbnails/213/409/64/64/636992403483369946.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://www.curseforge.com/minecraft/mc-mods/minihud" target="_blank">MiniHUD</a>
+				</h3>
+				<p>Provides on-screen info on various in-world properties.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<h2>Other Quality of Life Improvements</h2>
+		<p>The following mods offer additional visual enhancements and usseful functionalities.</p>
+		<div class="mod" id="cleardespawn">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/yoJJjRRE/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/cleardespawn" target="_blank">ClearDespawn</a>
+				</h3>
+				<p>Makes dropped items flash when they are about to despawn.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="dont-clear-chat-history">
+			<div class="mod-icon">
+				<img src="https://media.forgecdn.net/avatars/thumbnails/296/53/64/64/637339129152871550.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://www.curseforge.com/minecraft/mc-mods/dont-clear-chat-history" target="_blank">Don't Clear Chat History</a>
+				</h3>
+				<p>Doesn't clear the messages sent/received when disconnecting and/or relogging from a server or singleplayer.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="effective">
+			<div class="mod-icon">
+				<img src="https://media.forgecdn.net/avatars/thumbnails/467/123/64/64/637748529243644133.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://www.curseforge.com/minecraft/mc-mods/effective" target="_blank">Effective</a>
+				</h3>
+				<p>Adds water/lava cascade and entity splash visuals and sounds.</p>
+			</div>
+			<div class="mod-version">
+				<span class="very-outdated"><span class="circle"></span> 1.19.2</span>
+			</div>
+		</div>
+		<div class="mod" id="fabrishot">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/3qsfQtE9/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/fabrishot" target="_blank">Fabrishot</a>
+				</h3>
+				<p>Allows for taking screenshots of any resolution.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="morechathistory">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/8qkXwOnk/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/morechathistory" target="_blank">MoreChatHistory</a>
+				</h3>
+				<p>Increases the maximum length of the chat history.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="no-chat-reports">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/qQyHxfxd/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/no-chat-reports" target="_blank">No Chat Reports</a>
+				</h3>
+				<p>Strips the cryptographic signature from chat messages so you can't be reported.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="no-fade">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/ncKjyGm3/4152b3215b7695a3e12ef1b06e47cf9aa2edf8b0.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/fadeless" target="_blank">Fadeless</a>
+				</h3>
+				<p>Removes all fade-out animations.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<h2>Dependencies</h2>
+		<p>The following mods are required by one or more of the mods above, or a combination of the them, to work properly.</p>
+		<div class="mod" id="cloth-config-api">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/9s6osm5g/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/cloth-config" target="_blank">Cloth Config API</a>
+				</h3>
+				<p>Required when using <a href="#dynamic-fps">Dynamic FPS</a> and <a href="#mod-menu">Mod Menu</a> together, <a href="#paginated-advancements">Paginated Advancements</a> and <a href="#mod-menu">Mod Menu</a> together, and/or <a href="#sound-physics-remastered">Sound Physics Remastered</a> and <a href="#mod-menu">Mod Menu</a> together.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="fabric-language-kotlin">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/Ha28R6CL/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/fabric-language-kotlin" target="_blank">Fabric Language Kotlin</a>
+				</h3>
+				<p>Required by <a href="#optigui">OptiGUI</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="indium">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/Orvt0mRa/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/indium" target="_blank">Indium</a>
+				</h3>
+				<p>Required when using <a href="#continuity">Continuity</a> and <a href="#sodium">Sodium</a> together and/or using <a href="#enhanced-block-entities">Enhanced Block Entities</a> and <a href="#sodium">Sodium</a> together.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="malilib">
+			<div class="mod-icon">
+				<img src="https://media.forgecdn.net/avatars/thumbnails/171/135/64/64/636727036520163113.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://www.curseforge.com/minecraft/mc-mods/malilib" target="_blank">MaLiLib</a>
+				</h3>
+				<p>Required by <a href="#litematica">Litematica</a> and <a href="#minihud">MiniHUD</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="quilted-fabric-api">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/qvIfYCYJ/icon.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/qsl" target="_blank">Quilted Fabric API</a>
+				</h3>
+				<p>Required by <a href="#colormatic">Colormatic</a>, <a href="#enhanced-block-entities">Enhanced Block Entities</a>, <a href="#fabricskyboxes">FabricSkyBoxes</a>, <a href="#horse-stats-vanilla">Horse Stats Vanilla</a>, <a href="#indium">Indium</a>, <a href="#mod-menu">Mod Menu</a>, <a href="#ok-zoomer">Ok Zoomer</a>, <a href="#optigui">OptiGUI</a>, and <a href="#shulkerboxtooltip">ShulkerBoxTooltip</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+		<div class="mod" id="yetanotherconfiglib">
+			<div class="mod-icon">
+				<img src="https://cdn-raw.modrinth.com/data/1eAoo2KR/1e43d5714f87ac6b20622e73b3ba7209be5ebafb.png" />
+			</div>
+			<div class="mod-description">
+				<h3>
+					<a href="https://modrinth.com/mod/yacl" target="_blank">YetAnotherConfigLib</a>
+				</h3>
+				<p>Required by <a href="#more-culling">More Culling</a>.</p>
+			</div>
+			<div class="mod-version">
+				<span class="updated"><span class="circle"></span> 1.20.1</span>
+			</div>
+		</div>
+	</body>
+</html>
