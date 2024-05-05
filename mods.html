@@ -138,19 +138,35 @@
 				width: 13px;
 			}
 			
-			.mod .mod-version span.updated span.circle
+			.mod .mod-version span.updated span.circle,
+			.progress .updated
 			{
 				background-color: rgb(27, 217, 106);
 			}
 			
-			.mod .mod-version span.outdated span.circle
+			.mod .mod-version span.outdated span.circle,
+			.progress .outdated
 			{
 				background-color: rgb(255, 163, 71);
 			}
 			
-			.mod .mod-version span.very-outdated span.circle
+			.mod .mod-version span.very-outdated span.circle,
+			.progress .very-outdated
 			{
 				background-color: rgb(255, 73, 110);
+			}
+
+			.progress
+			{
+				border-radius: 4px;
+				height: 20px;
+				margin: 1em;
+			}
+
+			.progress div
+			{
+				height: 100%;
+				float: left;
 			}
 		</style>
 	</head>
@@ -158,8 +174,18 @@
 		<h1>My Mods</h1>
 		<p>In what I like to call "the good ol' days," the only mod that I ever used was OptiFine, as I am what many refer to so lovingly as a "vanilla purist." But as time went on and the OptiFine mod became slower, more bloated, buggier, and more aggressive with its modifications to the game, it became clear to me that an alternative was necessary. At which point I found the mod trio Sodium, Lithium, and Phosphor, alongside a group of other mods that fulfilled OptiFine's many other features. From that day forward, my list of vanilla-esque mods has continued to grow. What follows is my complete list of mods at present.</p>
 		<p>All of these mods are used with the <a href="https://fabricmc.net/" target="_blank">Fabric Mod Loader</a>.</p>
-		<p>The listed Minecraft version is the most recent <i>release</i> that each mod is <b>confirmed</b> to be <b>100% fully compatible and functional</b> with. <span class="updated">Green</span> means it is confirmed to be compatible with the latest release. <span class="outdated">Orange</span> means that it's not been officially updated to the latest release, but has been tested by <i>me</i> and <i>appears</i> to function properly. (I make no guarantee that it will work for <i>you</i>.) <span class="very-outdated">Red</span> means that it is confirmed not to work with the latest release.</p>
-		<p>Some mods also include a link to an unofficial "pre-release". These are updated versions of the mod for newer releases of Minecraft, but are <b>not sanctioned by the mod's original author</b>. There is no guarantee that they are fully compatible, that they function properly, or that they do not include malware. <b>Proceed at own risk!</b></p>
+		<h2>Compatibility Progress</h2>
+		<div class="progress">
+			<div class="updated" style="width:57%"></div>
+			<div class="outdated" style="width:17%"></div>
+			<div class="very-outdated" style="width:26%"></div>
+		</div>
+		<p>The listed Minecraft version is the most recent release that each mod officially supports.</p>
+		<ul>
+			<li><span class="updated">Green</span> means it officially supports the latest release.</li>
+			<li><span class="outdated">Orange</span> means that it doesn't officially support the latest release, but has been tested by me and <i>appears</i> to function properly. (I make no guarantee that it will work for you.)</li>
+			<li><span class="very-outdated">Red</span> means that no support for the latest release is available.</p></li>
+		</ul>
 		<h2>OptiFine Features</h2>
 		<p>The following mods offer the features of the popular optimization mod OptiFine ported to Fabric and improved upon.</p>
 		<div class="mod" id="sodium">
