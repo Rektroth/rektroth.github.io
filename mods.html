@@ -105,8 +105,9 @@
 			}
 			
 			.mod .mod-version span.updated,
-			.mod .mod-version span.outdated,
-			.mod .mod-version span.very-outdated
+			.mod .mod-version span.kindof-updated,
+			.mod .mod-version span.kindof-outdated,
+			.mod .mod-version span.outdated
 			{
 				display: flex;
 				align-items: center;
@@ -117,19 +118,25 @@
 				color: rgb(27, 217, 106);
 			}
 			
-			span.outdated
+			span.kindof-updated
+			{
+				color: rgb(255, 217, 71);
+			}
+
+			span.kindof-outdated
 			{
 				color: rgb(255, 163, 71);
 			}
 			
-			span.very-outdated
+			span.outdated
 			{
 				color: rgb(255, 73, 110);
 			}
 			
 			.mod .mod-version span.updated span.circle,
-			.mod .mod-version span.outdated span.circle,
-			.mod .mod-version span.very-outdated span.circle
+			.mod .mod-version span.kindof-updated span.circle,
+			.mod .mod-version span.kindof-outdated span.circle,
+			.mod .mod-version span.outdated span.circle
 			{
 				border-radius: 50%;
 				margin-right: 4px;
@@ -144,14 +151,20 @@
 				background-color: rgb(27, 217, 106);
 			}
 			
-			.mod .mod-version span.outdated span.circle,
-			.progress .outdated
+			.mod .mod-version span.kindof-updated span.circle,
+			.progress .kindof-updated
+			{
+				background-color: rgb(255, 217, 71);
+			}
+
+			.mod .mod-version span.kindof-outdated span.circle,
+			.progress .kindof-outdated
 			{
 				background-color: rgb(255, 163, 71);
 			}
 			
-			.mod .mod-version span.very-outdated span.circle,
-			.progress .very-outdated
+			.mod .mod-version span.outdated span.circle,
+			.progress .outdated
 			{
 				background-color: rgb(255, 73, 110);
 			}
@@ -177,14 +190,16 @@
 		<h2>Compatibility Progress</h2>
 		<div class="progress">
 			<div class="updated" style="width:37%"></div>
-			<div class="outdated" style="width:36%"></div>
-			<div class="very-outdated" style="width:27%"></div>
+			<div class="kindof-updated" style="width:36%"></div>
+			<div class="kindof-outdated" style="width:10%"></div>
+			<div class="outdated" style="width:17%"></div>
 		</div>
 		<p>The listed Minecraft version is the most recent release that each mod officially supports.</p>
 		<ul>
-			<li><span class="updated">Green</span> means it officially supports the latest release.</li>
-			<li><span class="outdated">Orange</span> means that it doesn't officially support the latest release, but has been tested by me and <i>appears</i> to function properly. (I make no guarantee that it will work for you.)</li>
-			<li><span class="very-outdated">Red</span> means that no support for the latest release is available.</p></li>
+			<li><span class="updated">Green</span> means that it officially supports the latest release.</li>
+			<li><span class="kindof-updated">Yellow</span> means that it doesn't officially support the latest release, but has been tested by me and <i>appears</i> to function properly. (I make no guarantee that it will work for you.)</li>
+			<li><span class="kindof-outdated">Orange</span> means that it won't load in the latest release, but a small modification to the fabric.mod.json file corrects this. It <i>appears</i> to function properly otherwise. (Again, I make no guarantee that it will work for you.)</li>
+			<li><span class="outdated">Red</span> means that no compatibility with the latest release exists.</p></li>
 		</ul>
 		<h2>OptiFine Features</h2>
 		<p>The following mods offer the features of the popular optimization mod OptiFine ported to Fabric and improved upon.</p>
@@ -256,7 +271,7 @@
 				<p>Dynamic lighting.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.4</span>
+				<span class="outdated"><span class="circle"></span> 1.20.4</span>
 			</div>
 		</div>
 		<div class="mod" id="more-culling">
@@ -270,7 +285,7 @@
 				<p>More aggressive block face culling.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="zoomify">
@@ -284,7 +299,7 @@
 				<p>Adds a highly-configurable zoom.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="animatica">
@@ -298,7 +313,7 @@
 				<p>Implements the OptiFine animated texture format.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="cit-resewn">
@@ -312,7 +327,7 @@
 				<p>Implements the OptiFine custom item textures format.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.4</span>
+				<span class="outdated"><span class="circle"></span> 1.20.4</span>
 			</div>
 		</div>
 		<div class="mod" id="continuity">
@@ -369,7 +384,7 @@
 				<p>Required by <a href="#fabricskyboxes-interop">FabricSkyBoxes Interop</a>.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="fabricskyboxes-interop">
@@ -383,7 +398,7 @@
 				<p>Implements the OptiFine custom skyboxes format within <a href="#fabricskyboxes">FabricSkyBoxes</a>.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="optigui">
@@ -411,7 +426,7 @@
 				<p>Implements the OptiFine custom colors format.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.2</span>
+				<span class="outdated"><span class="circle"></span> 1.20.2</span>
 			</div>
 		</div>
 		<h2>Other Performance Enhancements</h2>
@@ -427,7 +442,7 @@
 				<p>A Fabric mod designed to improve the chunk performance of Minecraft.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="distant-horizons">
@@ -441,7 +456,7 @@
 				<p>See farther without turning your game into a slide show.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="dynamic-fps">
@@ -469,7 +484,7 @@
 				<p>Reduces lag by rendering block entities as normal blocks.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="entityculling">
@@ -483,7 +498,7 @@
 				<p>Skips rendering entities that aren't in view.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="ferritecore">
@@ -497,7 +512,7 @@
 				<p>Reduces memory usage.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="immediatelyfast">
@@ -525,7 +540,7 @@
 				<p>Optimizes networking.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="language-reload">
@@ -567,7 +582,7 @@
 				<p>Optimises worldgen performance for a better gameplay experience.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="nvidium">
@@ -597,7 +612,7 @@
 				<p>Fixes bugs.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="memory-leak-fix">
@@ -611,7 +626,7 @@
 				<p>Fixes known memory leaks.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.20.4</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.20.4</span>
 			</div>
 		</div>
 		<div class="mod" id="model-gap-fix">
@@ -625,7 +640,7 @@
 				<p>Fixes the stitching on block and item models.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="modern-fix">
@@ -639,7 +654,7 @@
 				<p>Improves performance, reduces memory usage, and fixes many bugs.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="whiteout">
@@ -653,7 +668,7 @@
 				<p>Ports the bugfixes offered by the Paper project to Fabric.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<h2>Graphical and Audio Improvements</h2>
@@ -669,7 +684,7 @@
 				<p>Renders player skins in 3D.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="better-mount-hud">
@@ -683,7 +698,7 @@
 				<p>Shows both horse health and player hunger while mounted to a horse, donkey, or mule.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="drip-sounds">
@@ -697,7 +712,7 @@
 				<p>Adds sounds for drip particles landing.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.4</span>
+				<span class="outdated"><span class="circle"></span> 1.20.4</span>
 			</div>
 		</div>
 		<div class="mod" id="effective">
@@ -711,7 +726,7 @@
 				<p>Adds water/lava cascade and entity splash visuals and sounds.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.1</span>
+				<span class="outdated"><span class="circle"></span> 1.20.1</span>
 			</div>
 		</div>
 		<div class="mod" id="not-enough-animations">
@@ -725,7 +740,7 @@
 				<p>Adds missing third-persion animations and modifies others to be better representative.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="paginated-advancements">
@@ -739,7 +754,7 @@
 				<p>Overhauls the advancements screen.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="smooth-swapping">
@@ -753,7 +768,7 @@
 				<p>Adds a smooth animation when moving items between containers.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.2</span>
+				<span class="outdated"><span class="circle"></span> 1.20.2</span>
 			</div>
 		</div>
 		<div class="mod" id="sound-physics-remastered">
@@ -781,7 +796,7 @@
 				<p>Adds little animations when you pick up or insert items with your mouse.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="wavey-capes">
@@ -795,7 +810,7 @@
 				<p>The cape shouldn't be a static slab.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<h2>Tools</h2>
@@ -811,7 +826,7 @@
 				<p>Allows for taking screenshots of any resolution.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-outdated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="horse-stats-vanilla">
@@ -825,7 +840,7 @@
 				<p>Displays the stats of horses, donkeys, and mules in their inventories.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.2</span>
+				<span class="outdated"><span class="circle"></span> 1.20.2</span>
 			</div>
 		</div>
 		<div class="mod" id="litematica">
@@ -839,7 +854,7 @@
 				<p>Provides a holographic overlay of saved builds.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.6</span>
+				<span class="outdated"><span class="circle"></span> 1.20.6</span>
 			</div>
 		</div>
 		<div class="mod" id="minihud">
@@ -853,7 +868,7 @@
 				<p>Provides on-screen info on various in-world properties.</p>
 			</div>
 			<div class="mod-version">
-				<span class="very-outdated"><span class="circle"></span> 1.20.6</span>
+				<span class="outdated"><span class="circle"></span> 1.20.6</span>
 			</div>
 		</div>
 		<div class="mod" id="mod-menu">
@@ -881,7 +896,7 @@
 				<p>Adds a notepad to the game UI.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="shulker-box-tooltip">
@@ -895,7 +910,7 @@
 				<p>See contents of shulker box in inventory.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<h2>Other Quality of Life Improvements</h2>
@@ -939,7 +954,7 @@
 				<p>Doesn't clear the messages sent/received when disconnecting and/or relogging from a server or singleplayer.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="no-fade">
@@ -953,7 +968,7 @@
 				<p>Removes all fade-out animations.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="morechathistory">
@@ -1053,7 +1068,7 @@
 				<p>Required by <a href="#litematica">Litematica</a> and <a href="#minihud">MiniHUD</a>.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 		<div class="mod" id="yetanotherconfiglib">
@@ -1067,7 +1082,7 @@
 				<p>Required by <a href="#debugify">Debugify</a>.</p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21</span>
+				<span class="kindof-updated"><span class="circle"></span> 1.21</span>
 			</div>
 		</div>
 	</body>
