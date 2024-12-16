@@ -107,7 +107,8 @@
 			.mod .mod-version span.updated,
 			.mod .mod-version span.kindof-updated,
 			.mod .mod-version span.kindof-outdated,
-			.mod .mod-version span.outdated
+			.mod .mod-version span.outdated,
+			.mod .mod-version span.abandoned
 			{
 				display: flex;
 				align-items: center;
@@ -136,7 +137,8 @@
 			.mod .mod-version span.updated span.circle,
 			.mod .mod-version span.kindof-updated span.circle,
 			.mod .mod-version span.kindof-outdated span.circle,
-			.mod .mod-version span.outdated span.circle
+			.mod .mod-version span.outdated span.circle,
+			.mod .mod-version span.abandoned span.circle
 			{
 				border-radius: 50%;
 				margin-right: 4px;
@@ -169,6 +171,12 @@
 				background-color: rgb(255, 73, 110);
 			}
 
+			.mod .mod-version span.abandoned span.circle,
+			.progress .abandoned
+			{
+				background-color: rgb(176, 186, 197);
+			}
+
 			.progress
 			{
 				border-radius: 4px;
@@ -194,19 +202,22 @@
 				updated:             44     69.84%
 				kind-of updated:     4       6.35%
 				kind-of outdated:    1       1.59%
-				outdated:            14     22.22%
+				outdated:            12     19.05%
+				abandoned:           2       3.17%
 			-->
 			<div class="updated" style="width:70%"></div>
 			<div class="kindof-updated" style="width:6%"></div>
 			<div class="kindof-outdated" style="width:2%"></div>
-			<div class="outdated" style="width:22%"></div>
+			<div class="outdated" style="width:19%"></div>
+			<div class="abandoned" style="width:3%"></div>
 		</div>
 		<p>The listed Minecraft version is the most recent release that each mod officially supports.</p>
 		<ul>
-			<li><span class="updated">Green</span> means that it officially supports the latest release.</li>
-			<li><span class="kindof-updated">Yellow</span> means that it doesn't officially support the latest release, but has been tested by me and <i>appears</i> to function properly. (I make no guarantee that it will work for you.)</li>
-			<li><span class="kindof-outdated">Orange</span> means that it won't load in the latest release, but a small modification to the fabric.mod.json file corrects this. It <i>appears</i> to function properly otherwise. (Again, I make no guarantee that it will work for you.)</li>
-			<li><span class="outdated">Red</span> means that no compatibility with the latest release exists.</p></li>
+			<li><span class="updated"><b>Green</b></span> means that it officially supports the latest release.</li>
+			<li><span class="kindof-updated"><b>Yellow</b></span> means that it doesn't officially support the latest release, but has been tested by me and <i>appears</i> to function properly. (I make no guarantee that it will work for you.)</li>
+			<li><span class="kindof-outdated"><b>Orange</b></span> means that it won't load in the latest release, but a small modification to the fabric.mod.json file corrects this. It <i>appears</i> to function properly otherwise. (Again, I make no guarantee that it will work for you.)</li>
+			<li><span class="outdated"><b>Red</b></span> means that no compatibility with the latest release exists.</li>
+			<li><span class="abandoned"><b>Gray</b></span> means that the project owner(s) have expressed little/no intention to update the mod to the latest release. These mods are likely to be removed from the list entirely should neither the owner(s) nor a 3rd-party update the mod within 2 major versions.</li>
 		</ul>
 		<h2>OptiFine Features</h2>
 		<p>The following mods offer the features of the popular optimization mod OptiFine ported to Fabric and improved upon.</p>
@@ -619,10 +630,9 @@
 					<a href="https://modrinth.com/mod/modernfix" target="_blank">ModernFix</a>
 				</h3>
 				<p>Improves performance, reduces memory usage, and fixes many bugs.</p>
-				<p><i>Will likely be removed from this list in the near future, as the project has unofficially been abandoned. The author has said that he has no motivation to update it to 1.21.2 and beyond.</i></p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21.1</span>
+				<span class="abandoned"><span class="circle"></span> 1.21.1</span>
 			</div>
 		</div>
 		<div class="mod" id="whiteout">
@@ -977,10 +987,9 @@
 					<a href="https://modrinth.com/mod/cherished-worlds" target="_blank">Cherished Worlds</a>
 				</h3>
 				<p>Favorite certain worlds, which will always be at the top of the list.</p>
-				<p><i>Will likely be removed from this list in the near future, as the project has unofficially been abandoned. The author has said that they have no intention of updating it to 1.21.2 and beyond.</i></p>
 			</div>
 			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21.1</span>
+				<span class="abandoned"><span class="circle"></span> 1.21.1</span>
 			</div>
 		</div>
 		<div class="mod" id="dont-clear-chat-history">
