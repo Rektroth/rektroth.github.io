@@ -8,6 +8,8 @@
 				color: rgb(176, 186, 197);
 				background-color: rgb(22, 24, 28);
 				font-size: 16px;
+				max-width: 800px;
+				margin: auto;
 			}
 			
 			h1,
@@ -60,7 +62,7 @@
 			
 			a:hover
 			{
-				color: #1a76e7;;
+				color: #1a76e7;
 			}
 			
 			.mod
@@ -69,7 +71,7 @@
 				flex-wrap: wrap;
 				background-color: rgb(38, 41, 47);
 				padding: 0.5em;
-				border-radius: 0.75em;
+				border-radius: 1rem;
 				margin: 1em;
 			}
 			
@@ -80,7 +82,7 @@
 			}
 			
 			.mod .mod-icon,
-			.mod .mod-version
+			.mod a.mod-download
 			{
 				flex: 20%;
 			}
@@ -90,1188 +92,305 @@
 				flex: 60%;
 			}
 			
-			.mod .mod-version
+			.mod a.mod-download
 			{
 				text-align: center;
 				font-weight: bold;
 				font-size: 19px;
 				margin: auto;
+				padding: 0.5em 0;
+				border-radius: 0.75rem;
+				color: black;
+			}
+
+			.mod a.mod-download.updated
+			{
+				background-color: rgb(27, 217, 106);
+			}
+
+			.mod a.mod-download.outdated
+			{
+				background-color: rgb(255, 73, 110);
+			}
+
+			.mod a.mod-download svg
+			{
+				height: 20px;
 			}
 			
 			.mod .mod-icon img,
 			.mod .mod-icon svg
 			{
 				width: 128px;
-				border-radius: 0.5em;
+				border-radius: 21px;
 				background-color: rgb(67, 73, 86);
 			}
-			
-			.mod .mod-version span.updated,
-			.mod .mod-version span.kindof-updated,
-			.mod .mod-version span.kindof-outdated,
-			.mod .mod-version span.outdated,
-			.mod .mod-version span.abandoned
-			{
-				display: flex;
-				align-items: center;
-			}
-			
-			span.updated
-			{
-				color: rgb(27, 217, 106);
-			}
-			
-			span.kindof-updated
-			{
-				color: rgb(255, 217, 71);
-			}
-
-			span.kindof-outdated
-			{
-				color: rgb(255, 163, 71);
-			}
-			
-			span.outdated
-			{
-				color: rgb(255, 73, 110);
-			}
-			
-			.mod .mod-version span.updated span.circle,
-			.mod .mod-version span.kindof-updated span.circle,
-			.mod .mod-version span.kindof-outdated span.circle,
-			.mod .mod-version span.outdated span.circle,
-			.mod .mod-version span.abandoned span.circle
-			{
-				border-radius: 50%;
-				margin-right: 4px;
-				display: block;
-				height: 13px;
-				width: 13px;
-			}
-			
-			.mod .mod-version span.updated span.circle,
-			.progress .updated
-			{
-				background-color: rgb(27, 217, 106);
-			}
-			
-			.mod .mod-version span.kindof-updated span.circle,
-			.progress .kindof-updated
-			{
-				background-color: rgb(255, 217, 71);
-			}
-
-			.mod .mod-version span.kindof-outdated span.circle,
-			.progress .kindof-outdated
-			{
-				background-color: rgb(255, 163, 71);
-			}
-			
-			.mod .mod-version span.outdated span.circle,
-			.progress .outdated
-			{
-				background-color: rgb(255, 73, 110);
-			}
-
-			.mod .mod-version span.abandoned span.circle,
-			.progress .abandoned
-			{
-				background-color: rgb(176, 186, 197);
-			}
-
-			.progress
-			{
-				border-radius: 4px;
-				height: 20px;
-				margin: 1em;
-			}
-
-			.progress div
-			{
-				height: 100%;
-				float: left;
-			}
 		</style>
+		<script>
+			const LATEST_MC_VERSION = '1.21.11';
+			const SEMANTIC_REGEX = /^[0-9]+.[0-9]+(.[0-9]+)?$/;
+
+			const MOD_TYPES = [
+				'performance',
+				'optifine',
+				'fixes',
+				'enhancements',
+				'gui',
+				'tools',
+				'dependencies'
+			];
+
+			const MODS = [
+				[
+					'badoptimizations',
+					'better-block-entities',
+					'entityculling',
+					'fast-ip-ping',
+					'ferrite-core',
+					'immediatelyfast',
+					'krypton',
+					'language-reload',
+					'lithium',
+					'moreculling',
+					'noisiumforked',
+					'nvidium',
+					'particle-core',
+					'scalablelux',
+					'sodium'
+				], [
+					'animatica',
+					'bobby',
+					'continuity',
+					'entity-model-features',
+					'entitytexturefeatures',
+					'iris',
+					'optigui',
+					'polytone',
+					'skyboxify',
+					'sodium-dynamic-lights',
+					'sodium-extra',
+					'zoomify'
+				], [
+					'centered-crosshair',
+					'debugify',
+					'modernfix-mvus',
+					'whiteout'
+				], [
+					'3dskinlayers',
+					'dripsounds',
+					'not-enough-animations',
+					'particular-reforged',
+					'sound-physics-remastered',
+					'sound',
+					'visuality',
+					'wavey-capes'
+				], [
+					'better-f1-reborn',
+					'betterf3',
+					'better-mount-hud',
+					'better-stats',
+					'blur-plus',
+					'chat-heads',
+					'chatpatches',
+					'fadeless',
+					'locator-heads',
+					'locator_lodestones',
+					'paginatedadvancements',
+					'reeses-sodium-options',
+					'shulkerboxtooltip',
+					'smooth-scroll',
+					'smooth-swapping',
+					'status-effect-bars',
+					'tiny-item-animations'
+				], [
+					'cherished-worlds',
+					'fabrishot',
+					'jade',
+					'litematica',
+					'minihud',
+					'modmenu',
+					'no-chat-reports',
+					'notes'
+				], [
+					'architectury-api',
+					'cloth-config',
+					'fabric-api',
+					'fabric-language-kotlin',
+					'forge-config-api-port',
+					'fzzy-config',
+					'malilib',
+					'mru',
+					'tcdcommons',
+					'yacl'
+				]
+			];
+
+			window.onload = async () => {
+				let modLists = [];
+
+				for (let i = 0; i < MOD_TYPES.length; i++) {
+					const type = MOD_TYPES[i];
+					modLists.push(document.getElementById(type + '-list'));
+				}
+
+				for (let i = 0; i < MOD_TYPES.length && i < MODS.length; i++) {
+					for (let j = 0; j < MODS[i].length; j++) {
+						const mod = await createMod(MODS[i][j]);
+						const div = createDiv(mod);
+						modLists[i].appendChild(div);
+					}
+				}
+			}
+
+			async function createMod(slug) {
+				const response = await callProjectApi(slug);
+				const version = await getLatestVersion(response.game_versions)
+				const download = await getLatestVersionUrl(slug, version);
+
+				return {
+					slug: response.slug,
+					title: response.title,
+					description: response.description,
+					icon: response.icon_url,
+					version,
+					download
+				};
+			}
+
+			async function getLatestVersion(versions) {
+				if (versions.some(version => version === LATEST_MC_VERSION)) {
+					return LATEST_MC_VERSION;
+				}
+
+				let highestMajor = 0;
+				let highestMinor = 0;
+				let highestPatch = 0;
+
+				for (let j = 0; j < versions.length; j++) {
+					const version = versions[j];
+
+					if (SEMANTIC_REGEX.test(version)) {
+						const parts = version.split('.');
+						const major = parts[0];
+						const minor = parts[1];
+						const patch = parts[2] ?? 0;
+
+						if (major > highestMajor) {
+							highestMajor = major;
+							highestMinor = 0;
+							highestPatch = 0;
+						}
+
+						if (minor > highestMinor) {
+							highestMinor = minor;
+							highestPatch = 0;
+						}
+
+						if (patch > highestPatch) {
+							highestPatch = patch;
+						}
+					}
+				}
+
+				let highestVersion = highestMajor + '.' + highestMinor;
+
+				if (highestPatch > 0) {
+					highestVersion += '.' + highestPatch;
+				}
+
+				return highestVersion;
+			}
+
+			async function getLatestVersionUrl(slug, version) {
+				const versions = await callLatestVersionApi(slug, version);
+				return versions[0].files[0].url;
+			}
+
+			async function callApi(api) {
+				const response = await fetch(api);
+				return await response.json();
+			}
+
+			async function callProjectApi(slug) {
+				return await callApi(`https://api.modrinth.com/v2/project/${slug}`);
+			}
+
+			async function callLatestVersionApi(modSlug, mcVersion) {
+				return await callApi(`https://api.modrinth.com/v2/project/${modSlug}/version?loaders=\[%22fabric%22\]&game_versions=\[%22${mcVersion}%22\]&include_changelog=false`);
+			}
+
+			function createDiv(mod) {
+				let status = 'updated';
+				let icon =
+					`<svg xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 104 104" aria-hidden="true">
+						<path fill="none" d="M0 0h103.4v103.4H0z"></path>
+						<path fill="none" stroke="#9a9a9a" stroke-width="5" d="M51.7 92.5V51.7L16.4 31.3l35.3 20.4L87 31.3 51.7 11 16.4 31.3v40.8l35.3 20.4L87 72V31.3L51.7 11"></path>
+					</svg>`;
+
+				if (mod.version !== LATEST_MC_VERSION) {
+					status = 'outdated';
+				}
+
+				if (mod.icon !== null && mod.icon !== undefined) {
+					icon = `<img src="${mod.icon}" />`;
+				}
+
+				const html =
+					`<div class="mod" id="${mod.slug}">
+						<div class="mod-icon">
+							${icon}
+						</div>
+						<div class="mod-description">
+							<h3>
+								<a href="https://modrinth.com/mod/${mod.slug}" target="_blank">${mod.title}</a>
+							</h3>
+							<p>${mod.description}</p>
+						</div>
+						<a class="mod-download ${status}" href="${mod.download}">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-4-4 4m0 0-4-4m4 4V4"></path>
+							</svg>
+							${mod.version}
+						</a>
+					</div>`;
+
+				const div = document.createElement('div');
+				div.innerHTML = html.trim();
+				return div.firstChild;
+			}
+		</script>
 	</head>
-	<body style="max-width: 800px; margin: auto;">
+	<body>
 		<h1>My Mods</h1>
 		<p>In what I like to call "the good ol' days," the only mod that I ever used was OptiFine, as I am what many refer to so lovingly as a "vanilla purist." But as time went on and the OptiFine mod became slower, more bloated, buggier, and more aggressive with its modifications to the game, it became clear to me that an alternative was necessary. At which point I found the mod trio Sodium, Lithium, and Phosphor, alongside a group of other mods that fulfilled OptiFine's many other features. From that day forward, my list of vanilla-esque mods has continued to grow. What follows is my complete list of mods at present.</p>
 		<p>All of these mods are used with the <a href="https://fabricmc.net/" target="_blank">Fabric Mod Loader</a>.</p>
-		<h2>Compatibility Progress</h2>
-		<div class="progress">
-			<!--
-				total mods:          74    100.00%
-				updated:             70     94.59%
-				kind-of updated:     0       0.00%
-				kind-of outdated:    0       0.00%
-				outdated:            4       5.41%
-				abandoned:           0       0.00%
-			-->
-			<div class="updated" style="width:95%"></div>
-			<div class="kindof-updated" style="width:0%"></div>
-			<div class="kindof-outdated" style="width:0%"></div>
-			<div class="outdated" style="width:5%"></div>
-			<div class="abandoned" style="width:0%"></div>
-		</div>
-		<p>The listed Minecraft version is the most recent release that each mod officially supports.</p>
-		<ul>
-			<li><span class="updated"><b>Green</b></span> means that it officially supports the latest release.</li>
-			<li><span class="kindof-updated"><b>Yellow</b></span> means that it doesn't officially support the latest release, but has been tested by me and <i>appears</i> to function properly. (I make no guarantee that it will work for you.)</li>
-			<li><span class="kindof-outdated"><b>Orange</b></span> means that it won't load in the latest release, but a small modification to the fabric.mod.json file corrects this. It <i>appears</i> to function properly otherwise. (Again, I make no guarantee that it will work for you.)</li>
-			<li><span class="outdated"><b>Red</b></span> means that no compatibility with the latest release exists.</li>
-			<li><span class="abandoned"><b>Gray</b></span> means that the project owner(s) have expressed little/no intention to update the mod to the latest release. These mods are likely to be removed from this list in the near future should they remain unmaintained.</li>
-		</ul>
-		<h2>Performance Optimizations</h2>
-		<p>The following mods provide various performance optimizations across multiple layers and aspects of the game.</p>
-		<div class="mod" id="badoptimizations">
-			<div class="mod-icon">
-				<svg class="`experimental-styles-within avatar" style="--_size:96px;" xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 104 104" aria-hidden="true" data-v-c0c27387=""><path fill="none" d="M0 0h103.4v103.4H0z" data-v-c0c27387=""></path><path fill="none" stroke="#9a9a9a" stroke-width="5" d="M51.7 92.5V51.7L16.4 31.3l35.3 20.4L87 31.3 51.7 11 16.4 31.3v40.8l35.3 20.4L87 72V31.3L51.7 11" data-v-c0c27387=""></path></svg>
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/badoptimizations" target="_blank">BadOptimizations</a>
-				</h3>
-				<p>Optimization mod that focuses on things other than rendering.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="better-block-entities">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/ONZm0H7Y/142bd2d8cd1051336c56c2a558f28cc3cce3a20d.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/better-block-entities" target="_blank">Better Block Entities</a>
-				</h3>
-				<p>Reduces lag by rendering block entities as normal blocks.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="entityculling">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/NNAgCjsB/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/entityculling" target="_blank">Entity Culling</a>
-				</h3>
-				<p>Skips rendering entities that aren't in view.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="fast-ip-ping">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/9mtu0sUO/dca186a8a57d45ad06e88de6cfc45d4cc4c6a0ba.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/fast-ip-ping" target="_blank">Fast IP Ping</a>
-				</h3>
-				<p>Skips reversed DNS lookup for literal IP addresses.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="ferritecore">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/uXXizFIs/icon.jpg" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/ferrite-core" target="_blank">FerriteCore</a>
-				</h3>
-				<p>Reduces memory usage.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="immediatelyfast">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/5ZwdcRci/8335dd505094a79b4ad306935b10f724e2b76d8b.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/immediatelyfast" target="_blank">ImmediatelyFast</a>
-				</h3>
-				<p>Improves immediate mode rendering performance.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="krypton">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/fQEb0iXm/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/krypton/" target="_blank">Krypton</a>
-				</h3>
-				<p>Optimizes networking.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="language-reload">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/uLbm7CG6/9cae8ec18cac3b1cc6ef1efa239f381d669264e6.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/language-reload" target="_blank">Language Reload</a>
-				</h3>
-				<p>Makes switching between languages instant.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="lithium">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/gvQqBUqZ/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/lithium" target="_blank">Lithium</a>
-				</h3>
-				<p>Optimizes general game logic to improve tick speed.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="more-culling">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/51shyZVL/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/moreculling" target="_blank">More Culling</a>
-				</h3>
-				<p>More aggressive block face culling.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="noisiumforked">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/hasdd01q/6217fb8bc818c19fdd461a5d4e13ffbbbc95db6b_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/noisiumforked" target="_blank">NoisiumForked</a>
-				</h3>
-				<p>Optimises worldgen performance for a better gameplay experience.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="nvidium">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/SfMw2IZN/dfd2ee7b56197c430090e38936c7e0254790f61f.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://github.com/drouarb/nvidium/releases" target="_blank">Nvidium</a>
-				</h3>
-				<p>Uses the nvidia rendering engine.</p>
-				<p><i>(<a href="https://modrinth.com/mod/nvidium" target="_blank">Original</a> appears abandoned.)</i></p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="particle-core">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/RSeLon5O/147110a6a4457b2f287f68fc626771f0f8ef2cde_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/particle-core" target="_blank">Particle Core</a>
-				</h3>
-				<p>Particle optimizations.</p>
-			</div>
-			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21.8</span>
-			</div>
-		</div>
-		<div class="mod" id="scalablelux">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/Ps1zyz6x/27133942a1a58af1bb11b087957ea4cc14414dd3_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/scalablelux" target="_blank">ScalableLux</a>
-				</h3>
-				<p>Improves the performance of light updates.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="sodium">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/AANobbMI/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/sodium" target="_blank">Sodium</a>
-				</h3>
-				<p>Modern rendering engine.</p>
-				<p>Required by <a href="#better-block-entities">Better Block Entities</a>, <a href="#iris">Iris</a>, <a href="#nvidium">NVidium</a>, <a href="#reeses-sodium-options">Reese's Sodium Options</a>, and <a href="#sodium-extra">Sodium Extra</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<h2>OptiFine/MCPatcher Features</h2>
-		<p>The following mods offer the features of the old MCPatcher - later merged into OptiFine - ported to Fabric and improved upon.</p>
-		<div class="mod" id="animatica">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/PRN43VSY/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/animatica" target="_blank">Animatica</a>
-				</h3>
-				<p>Implements the OptiFine animated texture format.</p>
-			</div>
-			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21.6</span>
-			</div>
-		</div>
-		<div class="mod" id="bobby">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/M08ruV16/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/bobby" target="_blank">Bobby</a>
-				</h3>
-				<p>Allows for render distance greater than the server.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="continuity">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/1IjD5062/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/continuity" target="_blank">Continuity</a>
-				</h3>
-				<p>Implements the OptiFine connected textures format and adds emissive texture support for blocks and items.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="entity-model-features">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/4I1XuqiY/7a6acd528931a1a0d1b60fd0925b88227fb345cc.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/entity-model-features" target="_blank">Entity Model Features</a>
-				</h3>
-				<p>Implements the OptiFine custom entity models and animations format.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="entity-texture-features">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/BVzZfTc1/fa03aea7027f38b272a249d26cbe4cb7e94becf1.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/entitytexturefeatures" target="_blank">Entity Texture Features</a>
-				</h3>
-				<p>Implements the OptiFine random and emissive mob textures format.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="iris">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/YL57xq9U/dc558eece920db435f9823ce86de0c4cde89800b.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/iris" target="_blank">Iris</a>
-				</h3>
-				<p>Implements the OptiFine shader format.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="optigui">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/JuksLGBQ/2ec739011e612256ebe0c79a4ce064d0e453dd0f.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/optigui" target="_blank">OptiGUI</a>
-				</h3>
-				<p>Implements the OptiFine custom GUI format.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="polytone">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/3qAYkBMB/828636188cd2427eb1158dd1e0bddd42d318ccbf_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/polytone" target="_blank">Polytone</a>
-				</h3>
-				<p>Implements the OptiFine custom colors format.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="skyboxify">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/DWuwk8aA/7fe3045177b02be3aaf2706fdbbe469a1e268bd6_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/skyboxify" target="_blank">Skyboxify</a>
-				</h3>
-				<p>Allows for custom skyboxes in resource packs.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="sodium-dynamic-lights">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/PxQSWIcD/a5ab5515213391934e18baaf487c87e4b24ebfa3_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/sodium-dynamic-lights" target="_blank">Sodium Dynamic Lights</a>
-				</h3>
-				<p>Dynamic lighting.</p>
-			</div>
-			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21.5</span>
-			</div>
-		</div>
-		<div class="mod" id="sodium-extra">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/PtjYWJkn/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/sodium-extra" target="_blank">Sodium Extra</a>
-				</h3>
-				<p>Adds some configurations not included in <a href="#sodium">Sodium</a>, such as adjustable cloud height and more advanced particle controls.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="zoomify">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/w7ThoJFB/25d48c335340c12566044c8f35df5102e72dc06c.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/zoomify" target="_blank">Zoomify</a>
-				</h3>
-				<p>Adds a highly-configurable zoom.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<h2>Bug Fixes</h2>
-		<p>These mods simply fix bugs.</p>
-		<div class="mod" id="centered-crosshair">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/xUTHly0N/e53db5e91989e352d3c95dde6a76a4b36654ce83.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/centered-crosshair" target="_blank">Centered Crosshair</a>
-				</h3>
-				<p>Centers the crosshair to be perfectly in the middle of the screen.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="debugify">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/QwxR6Gcd/d1db8e74a5ad29908bd011ce271145cea349cd13.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/debugify" target="_blank">Debugify</a>
-				</h3>
-				<p>Fixes bugs.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="modernfix-mvus">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/TjSm1wrD/e1d2433476995be1b1a94ff1afaf6167752274ae_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/modernfix-mvus" target="_blank">ModernFix-mVUS</a>
-				</h3>
-				<p>Improves performance, reduces memory usage, and fixes many bugs.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="whiteout">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/5piZC07n/a4f10ca00ced221bd8b1863f9400efad82a2b4fc_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/whiteout" target="_blank">Whiteout</a>
-				</h3>
-				<p>Ports the bugfixes offered by the Paper project to Fabric.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<h2>Graphical and Audio Enhancements</h2>
-		<p>These mods make slight enhancements to the world's graphics and sounds.</p>
-		<div class="mod" id="3d-skin-layers">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/zV5r3pPn/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/3dskinlayers" target="_blank">3D Skin Layers</a>
-				</h3>
-				<p>Renders player skins in 3D.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="drip-sounds">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/T8MMXTpr/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/dripsounds" target="_blank">Drip Sounds</a>
-				</h3>
-				<p>Adds sounds for drip particles landing.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="not-enough-animations">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/MPCX6s5C/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/not-enough-animations" target="_blank">Not Enough Animations</a>
-				</h3>
-				<p>Adds missing third-persion animations and modifies others to be better representative.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="particular-reforged">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/pYFUU6cq/152536579fe8e475149273b64cabdef764b3da9f_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/particular-reforged" target="_blank">Particular Reforged</a>
-				</h3>
-				<p>Enhances Minecraft's ambience with hand-crafted visual effects.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="sound-physics-remastered">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/qyVF9oeo/798fbfae58ec95ad51f3e1d522b43227306c326c.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/sound-physics-remastered" target="_blank">Sound Physics Remastered</a>
-				</h3>
-				<p>Provides realistic sound attenuation, reverberation, and absorption.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="sounds">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/ZouiUX7t/b6ae84ea14654245f58856722473afeddf72360c_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/sound" target="_blank">Sounds</a>
-				</h3>
-				<p>Adds and enhances sound effects throughout out the world, UI, and chat.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="visuality">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/rI0hvYcd/5c866549318e907bbfe0d525afe43cb17a36a481.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/visuality" target="_blank">Visuality</a>
-				</h3>
-				<p>Little visual improvements by adding a bunch of new particles.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="wavey-capes">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/kYuIpRLv/8c7d460e1c4a396970b1e016d3889509ef473c25.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/wavey-capes" target="_blank">Wavey Capes</a>
-				</h3>
-				<p>The cape shouldn't be a static slab.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<h2>GUI/HUD Improvements</h2>
-		<p>These mods make improvements to the player's GUI and HUD, both for appearance and utility.</p>
-		<div class="mod" id="better-f1-reborn">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/2JIeCmxb/e8ce320a388b18455e49386aed2ab56578fe19d8_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/better-f1-reborn" target="_blank">Better F1 Reborn</a>
-				</h3>
-				<p>Hide only the HUD using F1.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="betterf3">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/8shC1gFX/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/betterf3" target="_blank">Better F3</a>
-				</h3>
-				<p>Makes the debug screen highly configurable and easier to read.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="better-mount-hud">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/kqJFAPU9/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/better-mount-hud" target="_blank">Better Mount HUD</a>
-				</h3>
-				<p>Shows both horse health and player hunger while mounted to a horse, donkey, or mule.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="better-statistics-screen">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/n6PXGAoM/c5a85914f01be35575abe61c2d19d48e08581034_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/better-stats" target="_blank">Better Statistics Screen</a>
-				</h3>
-				<p>Improves the statistics screen.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="blur-plus">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/NK39zBp2/1bb976c95042f20f26e27e6c4eb9e359e45d5002.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/blur-plus" target="_blank">Blur+</a>
-				</h3>
-				<p>Spices up the boring vanilla blur effect.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="chat-heads">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/Wb5oqrBJ/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/chat-heads" target="_blank">Chat Heads</a>
-				</h3>
-				<p>See who you're chatting with!</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="chat-patches">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/MOqt4Z5n/56c954dea290ef4dd1b0d6ea92a811acac62ca85.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/chatpatches" target="_blank">Chat Patches</a>
-				</h3>
-				<p>Touches up a few aspects of the mundane chat.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="no-fade">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/ncKjyGm3/4152b3215b7695a3e12ef1b06e47cf9aa2edf8b0.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/fadeless" target="_blank">Fadeless</a>
-				</h3>
-				<p>Removes all fade-out animations.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="locator-heads">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/L4pt5egz/933e270e6b68639189f618948f11d3828597df39.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/locator-heads" target="_blank">Locator Heads</a>
-				</h3>
-				<p>Show player heads on the locator bar.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="locator-lodestones">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/pMBcsVIg/a54a8981668c595fcad6bd497b763d10d5e18325_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/locator_lodestones" target="_blank">Locator Lodestones</a>
-				</h3>
-				<p>Adds lodestones to the player locator bar.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="paginated-advancements">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/pJogNFap/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/paginatedadvancements" target="_blank">Paginated Advancements</a>
-				</h3>
-				<p>Overhauls the advancements screen.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="reeses-sodium-options">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/Bh37bMuy/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/reeses-sodium-options" target="_blank">Reese's Sodium Options</a>
-				</h3>
-				<p>Better options menu for <a href="#sodium">Sodium</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="shulker-box-tooltip">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/2M01OLQq/dae30b8d8b277b6ebd80a7338234fdd2ae04ed75.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/shulkerboxtooltip" target="_blank">Shulker Box Tooltip</a>
-				</h3>
-				<p>See contents of shulker box in inventory.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="smooth-scroll">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/CllP7wW0/6d787d5cd5fface4fe9a5f6ce0770576bca09132.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/smooth-scroll" target="_blank">Smooth Scrolling</a>
-				</h3>
-				<p>Smoothly scrolls chat, hotbar, creative inventory, etc.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="smooth-swapping">
-			<div class="mod-icon">
-				<img src="https://media.forgecdn.net/avatars/417/170/637640649236923611.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/smooth-swapping" target="_blank">Smooth Swapping</a>
-				</h3>
-				<p>Adds a smooth animation when moving items between containers.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="status-effect-bars">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/x02cBj9Y/7ee93fac37512f4f04aa82f15deada7b2ca9269f.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/status-effect-bars" target="_blank">Status Effect Bars</a>
-				</h3>
-				<p>Adds bars to the status effects overlay to show the remaining duration of effects.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="tiny-item-animations">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/wMkevcSR/cefe2f7923e57980cb27671c948ac3393e55a4e9.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/tiny-item-animations" target="_blank">Tiny Item Animations</a>
-				</h3>
-				<p>Adds little animations when you pick up or insert items with your mouse.</p>
-			</div>
-			<div class="mod-version">
-				<span class="outdated"><span class="circle"></span> 1.21.8</span>
-			</div>
-		</div>
-		<h2>Tools</h2>
-		<p>The following mods provide tools to assist with a variety of tasks.</p>
-		<div class="mod" id="cherished-worlds">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/3azQ6p0W/14d3a7430f4e834fc0a86d228c6e17e5b9b33a0a.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/cherished-worlds" target="_blank">Cherished Worlds</a>
-				</h3>
-				<p>Favorite certain worlds, which will always be at the top of the list.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="fabrishot">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/3qsfQtE9/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/fabrishot" target="_blank">Fabrishot</a>
-				</h3>
-				<p>Allows for taking screenshots of any resolution.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="jade">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com//data/nvQzSEkH/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/jade" target="_blank">Jade</a>
-				</h3>
-				<p>Shows information about what you are looking at.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="litematica">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/bEpr0Arc/25b5529d7a3b030ac136a6ce879d8ed2a1aa4a8d.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/litematica" target="_blank">Litematica</a>
-				</h3>
-				<p>Provides a holographic overlay of saved builds.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="minihud">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/UMxybHE8/4adf057a251f694983af139a06839e33bcd7a419.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/minihud" target="_blank">MiniHUD</a>
-				</h3>
-				<p>Provides on-screen info on various in-world properties.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="mod-menu">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/modmenu" target="_blank">Mod Menu</a>
-				</h3>
-				<p>Provides a menu in which to see and configure all mods which you have installed.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="no-chat-reports">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/qQyHxfxd/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/no-chat-reports" target="_blank">No Chat Reports</a>
-				</h3>
-				<p>Strips the cryptographic signature from chat messages so you can't be reported.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="notes">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/ko8Qabo1/20c8e6917a98edb6eba063fdfb6137d0063c86f3.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/notes" target="_blank">Notes</a>
-				</h3>
-				<p>Adds a notepad to the game UI.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<h2>Dependencies</h2>
-		<p>The following mods are required by one or more of the mods above to function.</p>
-		<div class="mod" id="architectury-api">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/lhGA9TYQ/05fe3a61c28faaccaec3533b92e1b321edde7bf6_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/architectury-api" target="_blank">Architectury API</a>
-				</h3>
-				<p>Required by <a href="#better-statistics-screen">Better Statistics Screen</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="cloth-config-api">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/9s6osm5g/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/cloth-config" target="_blank">Cloth Config API</a>
-				</h3>
-				<p>Required by <a href="#drip-sounds">Drip Sounds</a>, <a href="#locator-heads">Locator Heads</a>, <a href="#more-culling">More Culling</a>, <a href="#no-chat-reports">No Chat Reports</a>, <a href="#paginated-advancements">Paginated Advancements</a>, <a href="#sound-physics-remastered">Sound Physics Remastered</a>, <a href="#visuality">Visuality</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="fabric-api">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/P7dR8mSH/icon.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/fabric-api" target="_blank">Fabric API</a>
-				</h3>
-				<p>Required by <a href="#locator-heads">Locator Heads</a>, <a href="#locator-lodestones">Locator Lodestones</a>, <a href="#mod-menu">Mod Menu</a>, <a href="#no-chat-reports">No Chat Reports</a>, <a href="#optigui">OptiGUI</a>, <a href="#particle-core">Particle Core</a>, <a href="#particular-reforged">Particular Reforged</a>, <a href="#shulker-box-tooltip">Shulker Box Tooltip</a>, <a href="#skyboxify">Skyboxify</a>, <a href="#smooth-swapping">Smooth Swapping</a>, and <a href="#sodium-dynamic-lights">Sodium Dynamic Lights</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="fabric-language-kotlin">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/Ha28R6CL/72c3d74aeb665e45aea93a945a01474cbce3b7da_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/fabric-language-kotlin" target="_blank">Fabric Language Kotlin</a>
-				</h3>
-				<p>Required by <a href="#optigui">OptiGUI</a>, <a href="#particle-core">Particle Core</a>, and <a href="#zoomify">Zoomify</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="owo">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/ohNO6lps/cb3b942cc18a66a0f35f802e004713f134e46cc2_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/forge-config-api-port" target="_blank">Forge Config API Port</a>
-				</h3>
-				<p>Required by <a href="#particular-reforged">Particular Reforged</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="fzzy-config">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/hYykXjDp/11f469b1bf1f201a95c2e3ddc09ca47d85c3ed53.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/fzzy-config" target="_blank">Fzzy Config</a>
-				</h3>
-				<p>Required by <a href="#particle-core">Particle Core</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="malilib">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/GcWjdA9I/a530ae55df5e0c405f5cf1b3e4fd6163a398bdc3.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/malilib" target="_blank">MaLiLib</a>
-				</h3>
-				<p>Required by <a href="#litematica">Litematica</a> and <a href="#minihud">MiniHUD</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="mru">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/SNVQ2c0g/82339bfc8a0a3a6a3c376f5c29555a378379cfa0_96.webp" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/mru" target="_blank">M.R.U.</a>
-				</h3>
-				<p>Required by <a href="#sounds">Sounds</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="tcdcommons-api">
-			<div class="mod-icon">
-				<img src="https://cdn.modrinth.com/data/Eldc1g37/36f2c7c76a7fc63e827bc20657853b7f1d9e4060.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/tcdcommons" target="_blank">TCDCommons API</a>
-				</h3>
-				<p>Required by <a href="#better-statistics-screen">Better Statistics Screen</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
-		</div>
-		<div class="mod" id="yetanotherconfiglib">
-			<div class="mod-icon">
-				<img src="https://cdn-raw.modrinth.com/data/1eAoo2KR/1e43d5714f87ac6b20622e73b3ba7209be5ebafb.png" />
-			</div>
-			<div class="mod-description">
-				<h3>
-					<a href="https://modrinth.com/mod/yacl" target="_blank">YetAnotherConfigLib</a>
-				</h3>
-				<p>Required by <a href="@chat-patches">Chat Patches</a>, <a href="#debugify">Debugify</a>, <a href="#sounds">Sounds</a>, and <a href="#zoomify">Zoomify</a>.</p>
-			</div>
-			<div class="mod-version">
-				<span class="updated"><span class="circle"></span> 1.21.11</span>
-			</div>
+		<div id="performance-list">
+			<h2>Performance Optimizations</h2>
+			<p>The following mods provide various performance optimizations across multiple layers and aspects of the game.</p>
+		</div>
+		<div id ="optifine-list">
+			<h2>OptiFine/MCPatcher Features</h2>
+			<p>The following mods offer the features of the old MCPatcher - later merged into OptiFine - ported to Fabric and improved upon.</p>
+		</div>
+		<div id="fixes-list">
+			<h2>Bug Fixes</h2>
+			<p>These mods simply fix bugs.</p>
+		</div>
+		<div id ="enhancements-list">
+			<h2>Graphical and Audio Enhancements</h2>
+			<p>These mods make slight enhancements to the world's graphics and sounds.</p>
+		</div>
+		<div id ="gui-list">
+			<h2>GUI/HUD Improvements</h2>
+			<p>These mods make improvements to the player's GUI and HUD, both for appearance and utility.</p>
+		</div>
+		<div id="tools-list">
+			<h2>Tools</h2>
+			<p>The following mods provide tools to assist with a variety of tasks.</p>
+		</div>
+		<div id="dependencies-list">
+			<h2>Dependencies</h2>
+			<p>The following mods are required by one or more of the mods above to function.</p>
 		</div>
 	</body>
 </html>
