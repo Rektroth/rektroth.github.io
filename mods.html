@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Rektroth - My Mods</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 			body
 			{
@@ -115,7 +116,7 @@
 
 			.mod a.mod-download svg
 			{
-				height: 20px;
+				height: 1em;
 			}
 			
 			.mod .mod-icon img,
@@ -124,6 +125,28 @@
 				width: 96px;
 				border-radius: 16px;
 				background-color: rgb(67, 73, 86);
+			}
+
+			.loader {
+				border: 8px solid #f3f3f3;
+				border-radius: 50%;
+				border-top: 8px solid #3498db;
+				width: 48px;
+				height: 48px;
+				-webkit-animation: spin 2s linear infinite; /* Safari */
+				animation: spin 2s linear infinite;
+				margin: 0 auto;
+			}
+
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
+
+			/* Safari */
+			@-webkit-keyframes spin {
+				0% { -webkit-transform: rotate(0deg); }
+				100% { -webkit-transform: rotate(360deg); }
 			}
 		</style>
 		<script>
@@ -226,23 +249,43 @@
 			];
 
 			window.onload = async () => {
-				let modLists = [];
-
-				for (let i = 0; i < MOD_TYPES.length; i++) {
+				// The DIV for each mod is first created and added to the document.
+				for (let i = 0; i < MOD_TYPES.length && i < MODS.length; i++) {
+					const modList = MODS[i];
 					const type = MOD_TYPES[i];
-					modLists.push(document.getElementById(type + '-list'));
+
+					for (let j = 0; j < modList.length; j++) {
+						const slug = modList[j];
+						const documentList = document.getElementById(type + '-list');
+						const modDiv = document.createElement('div');
+						const loaderDiv = document.createElement('div');
+						modDiv.classList.add('mod');
+						modDiv.id = slug;
+						loaderDiv.classList.add('loader');
+						modDiv.appendChild(loaderDiv);
+						documentList.appendChild(modDiv);
+					}
 				}
 
+				// Then the data is loaded asynchronously, but the desired order is preserved.
 				for (let i = 0; i < MOD_TYPES.length && i < MODS.length; i++) {
-					for (let j = 0; j < MODS[i].length; j++) {
-						const mod = await createMod(MODS[i][j]);
-						const div = createDiv(mod);
-						modLists[i].appendChild(div);
+					const modList = MODS[i];
+
+					for (let j = 0; j < modList.length; j++) {
+						const slug = modList[j];
+						const modDiv = document.getElementById(slug);
+						loadMod(slug, modDiv);
 					}
 				}
 			}
 
-			async function createMod(slug) {
+			async function loadMod(slug, modDiv) {
+				const mod = await getMod(slug);
+				const divHtml = createDivHtml(mod);
+				modDiv.innerHTML = divHtml;
+			}
+
+			async function getMod(slug) {
 				const response = await callProjectApi(slug);
 				const version = await getLatestVersion(response.game_versions)
 				const download = await getLatestVersionUrl(slug, version);
@@ -319,7 +362,7 @@
 				return await callApi(`https://api.modrinth.com/v2/project/${modSlug}/version?loaders=\[%22fabric%22\]&game_versions=\[%22${mcVersion}%22\]&include_changelog=false`);
 			}
 
-			function createDiv(mod) {
+			function createDivHtml(mod) {
 				let status = 'updated';
 				let icon =
 					`<svg xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 104 104" aria-hidden="true">
@@ -336,27 +379,22 @@
 				}
 
 				const html =
-					`<div class="mod" id="${mod.slug}">
-						<div class="mod-icon">
-							${icon}
-						</div>
-						<div class="mod-description">
-							<h3>
-								<a href="https://modrinth.com/mod/${mod.slug}" target="_blank">${mod.title}</a>
-							</h3>
-							<p>${mod.description}</p>
-						</div>
-						<a class="mod-download ${status}" href="${mod.download}">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-4-4 4m0 0-4-4m4 4V4"></path>
-							</svg>
-							${mod.version}
-						</a>
-					</div>`;
-
-				const div = document.createElement('div');
-				div.innerHTML = html.trim();
-				return div.firstChild;
+					`<div class="mod-icon">
+						${icon}
+					</div>
+					<div class="mod-description">
+						<h3>
+							<a href="https://modrinth.com/mod/${mod.slug}" target="_blank">${mod.title}</a>
+						</h3>
+						<p>${mod.description}</p>
+					</div>
+					<a class="mod-download ${status}" href="${mod.download}">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-4-4 4m0 0-4-4m4 4V4"></path>
+						</svg>
+						${mod.version}
+					</a>`;
+				return html.trim();
 			}
 		</script>
 	</head>
