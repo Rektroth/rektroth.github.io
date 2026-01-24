@@ -152,7 +152,18 @@
 		<script>
 			const SEMANTIC_REGEX = /^[0-9]+.[0-9]+(.[0-9]+)?$/;
 
-			const MOD_TYPES = [
+			const VersionType = Object.freeze({
+				RELEASE: 'release',
+				BETA: 'beta',
+				ALPHA: 'alpha'
+			});
+
+			const ModStatus = Object.freeze({
+				UPDATED: 'updated',
+				OUTDATED: 'outdated'
+			});
+
+			const MOD_TYPES = Object.freeze([
 				'performance',
 				'optifine',
 				'fixes',
@@ -160,9 +171,9 @@
 				'gui',
 				'tools',
 				'dependencies'
-			];
+			]);
 
-			const MODS = [
+			const MODS = Object.freeze([
 				[
 					'badoptimizations',
 					'better-block-entities',
@@ -245,9 +256,9 @@
 					'tcdcommons',
 					'yacl'
 				]
-			];
+			]);
 
-			let latestMcRelease = '1.21.11';
+			let latestMcRelease = '1.0.0';
 
 			window.onload = async () => {
 				latestMcRelease = await getLatestMinecraftRelease();
@@ -350,10 +361,10 @@
 			async function getLatestVersionUrl(slug, version) {
 				const versions = await callLatestVersionApi(slug, version);
 
-				const releases = versions.filter(version => version.version_type === 'release');
+				const releases = versions.filter(version => version.version_type === VersionType.RELEASE);
 				if (releases.length > 0) return releases[0].files[0].url;
 
-				const betas = versions.filter(version => version.version_type === 'beta');
+				const betas = versions.filter(version => version.version_type === VersionType.BETA);
 				if (betas.length > 0) return betas[0].files[0].url;
 
 				return versions[0].files[0].url;
@@ -361,7 +372,7 @@
 
 			async function getLatestMinecraftRelease() {
 				const versions = await callGameVersionsApi();
-				const releases = versions.filter(version => version.version_type === 'release');
+				const releases = versions.filter(version => version.version_type === VersionType.RELEASE);
 				return releases[0].version;
 			}
 
@@ -383,7 +394,7 @@
 			}
 
 			function createDivHtml(mod) {
-				let status = 'updated';
+				let status = ModStatus.UPDATED;
 				let icon =
 					`<svg xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 104 104" aria-hidden="true">
 						<path fill="none" d="M0 0h103.4v103.4H0z"></path>
@@ -391,7 +402,7 @@
 					</svg>`;
 
 				if (mod.version !== latestMcRelease) {
-					status = 'outdated';
+					status = ModStatus.OUTDATED;
 				}
 
 				if (mod.icon !== null && mod.icon !== undefined) {
