@@ -349,6 +349,18 @@
 
 			async function getLatestVersionUrl(slug, version) {
 				const versions = await callLatestVersionApi(slug, version);
+				const releases = versions.filter(version => version.version_type === 'release');
+
+				if (releases.length > 0) {
+					return releases[0].files[0].url;
+				}
+
+				const betas = versions.filter(version => version.version_type === 'beta');
+
+				if (betas.length > 0) {
+					return betas[0].files[0].url;
+				}
+
 				return versions[0].files[0].url;
 			}
 
