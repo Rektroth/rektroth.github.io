@@ -324,29 +324,28 @@
 				let highestMinor = 0;
 				let highestPatch = 0;
 
-				for (let j = 0; j < versions.length; j++) {
-					const version = versions[j];
+				const releases = versions.filter(version => SEMANTIC_REGEX.test(version));
 
-					if (SEMANTIC_REGEX.test(version)) {
-						const parts = version.split('.');
-						const major = parts[0];
-						const minor = parts[1];
-						const patch = parts[2] ?? 0;
+				for (let j = 0; j < releases.length; j++) {
+					const version = releases[j];
+					const parts = version.split('.');
+					const major = Number(parts[0]);
+					const minor = Number(parts[1]);
+					const patch = parts[2] ? Number(parts[2]) : 0;
 
-						if (major > highestMajor) {
-							highestMajor = major;
-							highestMinor = 0;
-							highestPatch = 0;
-						}
+					if (major > highestMajor) {
+						highestMajor = major;
+						highestMinor = 0;
+						highestPatch = 0;
+					}
 
-						if (minor > highestMinor) {
-							highestMinor = minor;
-							highestPatch = 0;
-						}
+					if (minor > highestMinor) {
+						highestMinor = minor;
+						highestPatch = 0;
+					}
 
-						if (patch > highestPatch) {
-							highestPatch = patch;
-						}
+					if (patch > highestPatch) {
+						highestPatch = patch;
 					}
 				}
 
