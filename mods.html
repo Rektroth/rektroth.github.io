@@ -109,6 +109,11 @@
 				background-color: rgb(27, 217, 106);
 			}
 
+			.mod a.mod-download.compatible
+			{
+				background-color: rgb(255, 163, 71)
+			}
+
 			.mod a.mod-download.outdated
 			{
 				background-color: rgb(255, 73, 110);
@@ -160,6 +165,7 @@
 
 			const ModStatus = Object.freeze({
 				UPDATED: 'updated',
+				COMPATIBLE: 'compatible',
 				OUTDATED: 'outdated'
 			});
 
@@ -401,7 +407,11 @@
 					</svg>`;
 
 				if (mod.version !== latestMcRelease) {
-					status = ModStatus.OUTDATED;
+					if (mod.version.substring(0, 4) === latestMcRelease.substring(0, 4)) {
+						status = ModStatus.COMPATIBLE;
+					} else {
+						status = ModStatus.OUTDATED;
+					}
 				}
 
 				if (mod.icon !== null && mod.icon !== undefined) {
