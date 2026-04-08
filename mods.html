@@ -153,6 +153,49 @@
 				0% { -webkit-transform: rotate(0deg); }
 				100% { -webkit-transform: rotate(360deg); }
 			}
+
+			.progress .updated
+			{
+				background-color: rgb(27, 217, 106);
+			}
+
+			.progress .compatible
+			{
+				background-color: rgb(255, 163, 71);
+			}
+			
+			.progress .outdated
+			{
+				background-color: rgb(255, 73, 110);
+			}
+
+			.progress
+			{
+				border-radius: 4px;
+				height: 20px;
+				margin: 1em;
+			}
+
+			.progress div
+			{
+				height: 100%;
+				float: left;
+			}
+
+			span.updated
+			{
+				color: rgb(27, 217, 106);
+			}
+
+			span.compatible
+			{
+				color: rgb(255, 163, 71);
+			}
+
+			span.outdated
+			{
+				color: rgb(255, 73, 110);
+			}
 		</style>
 		<script>
 			const SEMANTIC_REGEX = /^[0-9]+.[0-9]+(.[0-9]+)?$/;
@@ -264,7 +307,12 @@
 				]
 			]);
 
+			const MOD_COUNT = Object.freeze(MODS.flat(Infinity).length);
+
 			let latestMcRelease = '1.0.0';
+			let numUpdatedMods = 0;
+			let numCompatibleMods = 0;
+			let numOutdatedMods = 0;
 
 			window.onload = async () => {
 				latestMcRelease = await getLatestMinecraftRelease();
@@ -299,10 +347,25 @@
 				}
 			}
 
+			function updateProgress() {
+				const updatedProgress = document.getElementById('updated-progress');
+				const compatibleProgress = document.getElementById('compatible-progress');
+				const outdatedProgress = document.getElementById('outdated-progress');
+
+				const updatedPercent = (numUpdatedMods / MOD_COUNT) * 100;
+				const compatiblePercent = (numCompatibleMods / MOD_COUNT) * 100;
+				const outdatedPercent = (numOutdatedMods / MOD_COUNT) * 100;
+
+				updatedProgress.style.width = updatedPercent + '%';
+				compatibleProgress.style.width = compatiblePercent + '%';
+				outdatedProgress.style.width = outdatedPercent + '%';
+			}
+
 			async function loadMod(slug, modDiv) {
 				const mod = await getMod(slug);
 				const divHtml = createDivHtml(mod);
 				modDiv.innerHTML = divHtml;
+				updateProgress();
 			}
 
 			async function getMod(slug) {
@@ -411,9 +474,13 @@
 				if (mod.version !== latestMcRelease) {
 					if (mod.version.substring(0, 4) === latestMcRelease.substring(0, 4)) {
 						status = ModStatus.COMPATIBLE;
+						numCompatibleMods++;
 					} else {
 						status = ModStatus.OUTDATED;
+						numOutdatedMods++;
 					}
+				} else {
+					numUpdatedMods++;
 				}
 
 				if (mod.icon !== null && mod.icon !== undefined) {
@@ -444,6 +511,18 @@
 		<h1>Mods I Use</h1>
 		<p>In what I like to call "the good ol' days," the only mod that I ever used was OptiFine, as I am what many refer to so lovingly as a "vanilla purist." But as time went on and the OptiFine mod became slower, more bloated, buggier, and more aggressive with its modifications to the game, it became clear to me that an alternative was necessary. At which point I found the mod trio Sodium, Lithium, and Phosphor, alongside a group of other mods that fulfilled OptiFine's many other features. From that day forward, my list of vanilla-esque mods has continued to grow. What follows is my complete list of mods at present.</p>
 		<p>All of these mods are used with the <a href="https://fabricmc.net/" target="_blank">Fabric Mod Loader</a>.</p>
+		<h2>Compatibility</h2>
+		<div class="progress">
+			<div id="updated-progress" class="updated" style="width:0%"></div>
+			<div id="compatible-progress" class="compatible" style="width:0%"></div>
+			<div id="outdated-progress" class="outdated" style="width:0%"></div>
+		</div>
+		<p>The listed Minecraft version is the most recent release that each mod officially supports.</p>
+		<ul>
+			<li><span class="updated"><b>Green</b></span> means that it officially supports the latest release.</li>
+			<li><span class="compatible"><b>Orange</b></span> means that it officially supports the latest drop, but not necessarily the latest patch. These mods may work with the latest release, but it's not guaranteed.</li>
+			<li><span class="outdated"><b>Red</b></span> means that no compatibility with the latest drop exists.</li>
+		</ul>
 		<div id="performance-list">
 			<h2>Performance Optimizations</h2>
 			<p>The following mods provide various performance optimizations across multiple layers and aspects of the game.</p>
