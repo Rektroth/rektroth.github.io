@@ -446,9 +446,7 @@
 			}
 
 			async function callApi(api) {
-				const response = await fetch(api, {
-					cache: "reload"
-				});
+				const response = await fetch(api);
 				return await response.json();
 			}
 
